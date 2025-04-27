@@ -4,7 +4,7 @@
 A simple Python shell library that allows users to create and extend a customizable shell interface. 
 This library supports basic commands like `exit`, `clear`, `gset`, `gget`, `gsets`, and `help`, as well as the ability to add custom commands and extend functionality.
 
-##Features
+##Default Commands/Features
 ---------
 
 - `exit`: Exit the shell.
@@ -35,7 +35,8 @@ This library supports basic commands like `exit`, `clear`, `gset`, `gget`, `gset
 4. To customize the shell's prompt, add custom commands, or modify its behavior, you can create and pass your own set of commands:
 
       ```python
-      def custom_command(arguments):
+      def custom_command(arguments, shell_instance):
+          shell_instance.prompt = "newprompt> " 
           print(f"Custom command executed with arguments: {arguments}")
 
       custom_commands = {
@@ -49,15 +50,7 @@ This library supports basic commands like `exit`, `clear`, `gset`, `gget`, `gset
       shell.run_shell()
       ```
 
-5. To set or get global environment variables:
-
-      ```python
-      shell.gset(["MY_VAR", "HelloWorld"]) # Set environment variable
-      shell.gget(["MY_VAR"]) # Get environment variable
-      shell.gsets([]) # Display all global environment variables
-      ```
-
-6. Use `help` to get help for commands:
+5. Use `help` to get help for commands:
 
       ```python
       help
@@ -69,7 +62,8 @@ This library supports basic commands like `exit`, `clear`, `gset`, `gget`, `gset
 You can customize commands by passing a dictionary of custom commands to the `Shell` instance. Each custom command should have a name, a function, and an optional help message:
 
       ```python
-      def custom_function(arguments):
+      def custom_function(arguments, shell_instance):
+          shell_instance.prompt = "newprompt> " 
           print(f"Custom function executed with arguments: {arguments}")
 
       custom_commands = {
@@ -79,13 +73,3 @@ You can customize commands by passing a dictionary of custom commands to the `Sh
           }
       }
       ```
-
-##Tab Completion
---------------
-
-The shell supports tab completion for both commands and file paths. Simply start typing a command or file name and press the "Tab" key to autocomplete.
-
-##License
--------
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
