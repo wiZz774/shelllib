@@ -172,16 +172,19 @@ class Shell:
 
         # Dynamically calculate the length of the longest key
         max_key_length = max(len(key) for key in self.env_vars.keys())
+        max_val_length = max(len(val) for val in self.env_vars.values())
 
-        first_stat_name = 'Key'
+        first_stat_name = 'Name'
         secondary_stat_name = 'Value'
 
         if len(first_stat_name) > max_key_length:
             max_key_length = len(first_stat_name)
+        if len(secondary_stat_name) > max_val_length:
+            max_val_length = len(secondary_stat_name)
         
         # Adjusting the header and separator based on the longest key length
         header = f"{first_stat_name.ljust(max_key_length)}   {secondary_stat_name}"
-        separator = f"{'-' * max_key_length}   {'-' * len(secondary_stat_name)}"
+        separator = f"{'-' * max_key_length}   {'-' * max_val_length}"
 
         # Prepare the rows with environment variables
         rows = [header, separator]
@@ -189,6 +192,7 @@ class Shell:
             rows.append(f"{key.ljust(max_key_length)}   {value}")
 
         # Print all rows
+        print()
         print("\n".join(rows))
         print()
 
@@ -196,26 +200,36 @@ class Shell:
     def help(self, arguments):
         """Display help for all commands or a specific command."""
         if not arguments:
-            first_stat_name = 'CommandName'
-            secondary_stat_name = 'Help message'
-
             # Dynamically set the length for the separator line
-            max_command_length = max(len(command) for command in self.commands)
-            max_command_length = max(max_command_length, len(first_stat_name))  # Make sure 'CommandName' has enough space
+            first_stat_name = 'Commands:'
+            secondary_stat_name = ''
+
+            # Get the longest command length to format the output
+            #max_command_length = max(len(command) for command in self.commands)
+            #max_command_length = max(max_command_length, len(first_stat_name))  # Ensure 'cmdname' fits properly
+
+            max_command_length = len(first_stat_name)
 
             header = f"{first_stat_name.ljust(max_command_length)}   {secondary_stat_name}"
-            separator = f"{'-' * max_command_length}   {'-' * len(secondary_stat_name)}"
+            separator = f"{'=' * max_command_length}   "#{'=' * len(secondary_stat_name)}"
             rows = [header, separator]
+            
+            # Add all commands and their help text to the rows
             for command, help_message in self.command_help.items():
-                rows.append(f"{command.ljust(max_command_length)}   {help_message}")
+                rows.append(f"  {command.ljust(max_command_length)}   {help_message}")
+            
+            # Print all rows as the help content
+            print()
             print("\n".join(rows))
         else:
+            # Specific command help
             command_name = arguments[0]
             if command_name in self.command_help:
                 print(f"{command_name} => {self.command_help[command_name]}")
             else:
                 print(f"'{command_name}' is not a recognized command.")
         print()
+
 
     def exit(self, arguments):
         """Exit the shell."""
