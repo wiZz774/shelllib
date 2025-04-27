@@ -19,6 +19,7 @@ To get started, first clone the repository to your local machine:
 ```bash
 git clone https://github.com/your-username/shelllib.git
 cd shelllib
+```
 
 2. Using the Shell Class
 
