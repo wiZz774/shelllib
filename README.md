@@ -1,10 +1,10 @@
-#ShellLibrary
+# ShellLibrary
 -------------
 
 A simple Python shell library that allows users to create and extend a customizable shell interface. 
 This library supports basic commands like `exit`, `clear`, `gset`, `gget`, `gsets`, and `help`, as well as the ability to add custom commands and extend functionality.
 
-##Default Commands/Features
+## Default Commands/Features
 ---------
 
 - `exit`: Exit the shell.
@@ -14,7 +14,7 @@ This library supports basic commands like `exit`, `clear`, `gset`, `gget`, `gset
 - `gsets`: Display all global environment variables in a clean format.
 - `help`: Displays help information for commands.
 
-##How to Use
+## How to Use
 -----------
 
 1. Clone the repository or copy the code into your project.
@@ -56,7 +56,7 @@ This library supports basic commands like `exit`, `clear`, `gset`, `gget`, `gset
       help
       ```
 
-##Command Customization
+## Command Customization
 ----------------------
 
 You can customize commands by passing a dictionary of custom commands to the `Shell` instance. Each custom command should have a name, a function, and an optional help message:
